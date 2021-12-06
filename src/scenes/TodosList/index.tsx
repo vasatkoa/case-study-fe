@@ -44,7 +44,7 @@ enum FilterEnum {
 const TodosList = () => {
 	const { t } = useTranslation()
 
-	const [filter, setFilter] = useState(FilterEnum.ACTIVE)
+	const [filter, setFilter] = useState(FilterEnum.ALL)
 	const { loading, data = { todos: [] } } = useQuery<{ todos: Todo[] }>(
 		GET_TODOS
 	)
@@ -137,6 +137,13 @@ const TodosList = () => {
 				</TodoCount>
 				<FilterWrapper>
 					<Filter>
+					<FilterLink
+							className={filter === FilterEnum.ALL ? 'selected' : ''}
+							onClick={() => setFilter(FilterEnum.ALL)}
+							href="#/"
+						>
+							{t('main.footer.all')}
+						</FilterLink>
 						<FilterLink
 							className={filter === FilterEnum.ACTIVE ? 'selected' : ''}
 							onClick={() => setFilter(FilterEnum.ACTIVE)}
@@ -150,13 +157,6 @@ const TodosList = () => {
 							href="#/"
 						>
 							{t('main.footer.completed')}
-						</FilterLink>
-						<FilterLink
-							className={filter === FilterEnum.ALL ? 'selected' : ''}
-							onClick={() => setFilter(FilterEnum.ALL)}
-							href="#/"
-						>
-							{t('main.footer.all')}
 						</FilterLink>
 					</Filter>
 				</FilterWrapper>
